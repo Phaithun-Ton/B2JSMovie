@@ -1,0 +1,44 @@
+.contanier {
+  background-color: #2f2d34;
+  height: 100%;
+  position: relative;
+}
+
+.time {
+  color: #fff !important ;
+  box-shadow: none;
+  font-size: 0.9rem;
+}
+
+.timeComment {
+  color: #fff !important ;
+  box-shadow: none;
+  font-size: 0.9rem;
+  display: flex;
+  margin-right: 20px;
+  position: absolute;
+  right: 0;
+  bottom: 10px;
+}
+
+.fromComment {
+  background-color: #181a1d;
+  color: #fff;
+  border: none;
+  width: 95%;
+  margin-left: 20px;
+}
+
+.p {
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  hyphens: auto;
+  color: #fff;
+}
+
+.postInput {
+  background-color: #181a1d;
+  color: #fff;
+  border: none;
+  width: 90%;
+}

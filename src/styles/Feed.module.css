@@ -1,0 +1,29 @@
+.tagName {
+  border: 1.5px solid black;
+  background-color: #c43639;
+  color: #fff;
+}
+
+.feedContent {
+  background-color: #2f2d34;
+  color: #fff;
+  border: 1.5px solid black;
+}
+
+.filter {
+  background-color: #2f2d34;
+  color: #fff;
+
+  /* border: 1.5px solid black; */
+}
+
+.button {
+  background-color: #2f2d34;
+  color: #fff;
+  border: none;
+  font-size: 1rem;
+}
+
+.time {
+  color: rgb(189, 186, 186) !important;
+}

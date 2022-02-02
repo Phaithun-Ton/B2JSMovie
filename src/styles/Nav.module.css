@@ -1,0 +1,12 @@
+.nav {
+  background-color: #2f2d34;
+}
+
+.link {
+  color: #c43639;
+  font-weight: 500;
+}
+
+.link:hover {
+  color: rgb(183, 251, 214);
+}
