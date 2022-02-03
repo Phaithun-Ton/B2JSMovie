@@ -4,7 +4,6 @@ import styles from "../../styles/Feed.module.css";
 import { useContext } from "react";
 import { SelectContext } from "../../contexts/SelectContext";
 import { useNavigate } from "react-router-dom";
-import { getPost, setPost, clearPost } from "../../services/localStorage";
 
 function FeedContent({ tagName }) {
   const { setSelectPost } = useContext(SelectContext);
@@ -13,9 +12,7 @@ function FeedContent({ tagName }) {
 
   const hadleClick = (e) => {
     setSelectPost(e.target.value);
-    console.log(e.target.value);
-    setPost(id);
-    Navigate("/post");
+    Navigate(`/post/${e.target.value}`);
   };
 
   const Navigate = useNavigate();

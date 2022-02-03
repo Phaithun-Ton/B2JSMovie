@@ -1,46 +1,77 @@
 import { createContext, useContext, useEffect, useState } from "react";
-import { getPost } from "../services/localStorage";
 import axios from "../config/axios";
-import { PostContext } from "./PostContext";
+// import { PostContext } from "./PostContext";
 
 const SelectContext = createContext();
 
 function SelectContextProvider({ children }) {
+  const [id, setId] = useState("");
   const [posts, setPosts] = useState([]);
   const [selectPost, setSelectPost] = useState([]);
+  const [newTitlePost, setNewTitlePost] = useState([]);
   const [newPost, setNewPost] = useState([]);
+  const [showFrom, setShowFrom] = useState(true);
+  const [editPost, setEditPost] = useState(false);
+  const [editContent, setEditContent] = useState(true);
 
-  const { updatePost } = useContext(PostContext);
+  // const { updatePost } = useContext(PostContext);
 
-  // useEffect(() => {
-  //   // if (getPost()) {
-  //   axios
-  //     .get(`/posts/${selectPost}`)
-  //     .then((res) => {
-  //       setPosts(res.data.post);
-  //     })
-  //     .catch((err) => console.log(err));
-  //   // setSelectPost(getPost());
-  //   // }
-  // }, [selectPost, updatePost]);
-
-  console.log(selectPost);
   const fetchPostById = async () => {
     try {
-      const res = await axios.get(`/posts/${selectPost}`);
+      const res = await axios.get(`/posts/${id}`);
       setPosts(res.data.post);
     } catch (err) {
       console.log(err);
     }
   };
 
+  const toggleShowFrom = () => {
+    setShowFrom((prev) => !prev);
+    setEditPost((prev) => !prev);
+    setEditContent((prev) => !prev);
+  };
+
+  const updatePost = async (payload) => {
+    try {
+      console.log(payload);
+      const { postId, content } = payload;
+      const res = await axios.patch(`/posts/${postId}`, {
+        // title,
+        content,
+        // tagName,
+        // chageTagName,
+        // image,
+      });
+      fetchPostById(postId);
+      console.log(res.data);
+    } catch (error) {}
+  };
+
   useEffect(() => {
     fetchPostById();
-  }, []);
+  }, [id]);
 
   return (
     <SelectContext.Provider
-      value={{ posts, selectPost, setSelectPost, newPost, setNewPost }}
+      value={{
+        posts,
+        selectPost,
+        setSelectPost,
+        newPost,
+        setNewPost,
+        showFrom,
+        setShowFrom,
+        editPost,
+        setEditPost,
+        editContent,
+        setEditContent,
+        toggleShowFrom,
+        updatePost,
+        id,
+        setId,
+        newTitlePost,
+        setNewTitlePost,
+      }}
     >
       {children}
     </SelectContext.Provider>

@@ -1,16 +1,23 @@
 import { useContext, useState } from "react";
 import { AuthContext } from "../../contexts/AuthContext";
-import { PostContext } from "../../contexts/PostContext";
+import { SelectContext } from "../../contexts/SelectContext";
 import styles from "../../styles/Post.module.css";
 
 function PostHeader({ posts }) {
   const { user } = useContext(AuthContext);
-  const { toggleShowFrom, showFrom } = useContext(PostContext);
+  const {
+    toggleShowFrom,
+    showFrom,
+    setEditContent,
+    newTitlePost,
+    setNewTitlePost,
+  } = useContext(SelectContext);
 
-  const [title, setTitle] = useState(posts.title);
+  const { title } = posts;
 
   const handleSubmitTitleFrom = (e) => {
     e.preventDefault();
+    setEditContent((prev) => !prev);
   };
 
   return (
@@ -27,9 +34,9 @@ function PostHeader({ posts }) {
           <form onSubmit={handleSubmitTitleFrom}>
             <input
               type="text"
-              value={title}
+              value={newTitlePost}
               className={`form-control-plaintext ${styles.postInput}`}
-              onChange={(e) => setTitle(e.target.value)}
+              onChange={(e) => setNewTitlePost(e.target.value)}
             />
           </form>
         )}

@@ -1,14 +1,18 @@
 import { useContext } from "react";
-import { PostContext } from "../../contexts/PostContext";
 import { SelectContext } from "../../contexts/SelectContext";
 import styles from "../../styles/Post.module.css";
 
 function PostBody({ posts }) {
   const { PostImgs, content, id } = posts;
-  const { showFrom, updatePost, editPost, editContent, setEditContent } =
-    useContext(PostContext);
-
-  const { setNewPost, newPost } = useContext(SelectContext);
+  const {
+    showFrom,
+    updatePost,
+    editPost,
+    editContent,
+    setEditContent,
+    setNewPost,
+    newPost,
+  } = useContext(SelectContext);
 
   const payload = {
     content: newPost,
