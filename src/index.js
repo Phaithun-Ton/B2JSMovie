@@ -11,6 +11,7 @@ import LanguageContextProvider from "./contexts/LanguageContext";
 import ErrorContextProvider from "./contexts/ErrorContext";
 import SelectContextProvider from "./contexts/SelectContext";
 import CommentContextProvider from "./contexts/CommentContext";
+import TagNameContextProvider from "./contexts/PostContext";
 
 ReactDOM.render(
   <React.StrictMode>
@@ -18,11 +19,13 @@ ReactDOM.render(
       <ErrorContextProvider>
         <LanguageContextProvider>
           <AuthContextProvider>
-            <SelectContextProvider>
-              <CommentContextProvider>
-                <App />
-              </CommentContextProvider>
-            </SelectContextProvider>
+            <TagNameContextProvider>
+              <SelectContextProvider>
+                <CommentContextProvider>
+                  <App />
+                </CommentContextProvider>
+              </SelectContextProvider>
+            </TagNameContextProvider>
           </AuthContextProvider>
         </LanguageContextProvider>
       </ErrorContextProvider>

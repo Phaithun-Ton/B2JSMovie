@@ -2,6 +2,14 @@
   background-color: #2f2d34;
   height: 100%;
   position: relative;
+  color: #fff;
+}
+
+.tagName {
+  background-color: #2f2d34;
+  width: 98.1%;
+  color: #fff;
+  margin-bottom: 20px;
 }
 
 .time {

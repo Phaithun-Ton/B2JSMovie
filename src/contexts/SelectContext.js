@@ -1,6 +1,5 @@
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import axios from "../config/axios";
-// import { PostContext } from "./PostContext";
 
 const SelectContext = createContext();
 
@@ -13,8 +12,9 @@ function SelectContextProvider({ children }) {
   const [showFrom, setShowFrom] = useState(true);
   const [editPost, setEditPost] = useState(false);
   const [editContent, setEditContent] = useState(true);
-
-  // const { updatePost } = useContext(PostContext);
+  const [tagNameShowFrom, setTagNameShowFrom] = useState(true);
+  const [editTagName, setEditTagName] = useState([]);
+  const [newTagName, setNewTagName] = useState([]);
 
   const fetchPostById = async () => {
     try {
@@ -27,16 +27,33 @@ function SelectContextProvider({ children }) {
 
   const toggleShowFrom = () => {
     setShowFrom((prev) => !prev);
+    setNewPost(posts && posts.content);
+    setNewTitlePost(posts && posts.title);
     setEditPost((prev) => !prev);
-    setEditContent((prev) => !prev);
+    setEditContent(false);
   };
+
+  const toggleShowTagNameFrom = () => {
+    setTagNameShowFrom(false);
+    setEditTagName(posts && posts.postTagNames.TagName);
+  };
+
+  const toggleShowTagNameFromToDelete = () => {
+    setTagNameShowFrom(false);
+    setEditTagName(posts && posts.postTagNames.TagName);
+  };
+
+  const checkedTagName =
+    posts &&
+    posts.length !== 0 &&
+    posts.PostTagNames.map((item) => item.TagName && item.TagName.title);
 
   const updatePost = async (payload) => {
     try {
       console.log(payload);
-      const { postId, content } = payload;
+      const { postId, content, title } = payload;
       const res = await axios.patch(`/posts/${postId}`, {
-        // title,
+        title,
         content,
         // tagName,
         // chageTagName,
@@ -44,7 +61,37 @@ function SelectContextProvider({ children }) {
       });
       fetchPostById(postId);
       console.log(res.data);
-    } catch (error) {}
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const addPostTagName = async (payload) => {
+    const { postId, tagName } = payload;
+    console.log(postId);
+    console.log(tagName);
+    try {
+      const res = await axios.post(`/post-tag-names/${postId}/${tagName}`);
+      console.log(res.data);
+      fetchPostById(postId);
+      setTagNameShowFrom(true);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const deletePostTagName = async (payload) => {
+    const { postId, tagName } = payload;
+    console.log(postId);
+    console.log(tagName);
+    try {
+      const res = await axios.delete(`/post-tag-names/${postId}/${tagName}`);
+      console.log(res.data);
+      fetchPostById(postId);
+      setTagNameShowFrom(true);
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   useEffect(() => {
@@ -71,6 +118,16 @@ function SelectContextProvider({ children }) {
         setId,
         newTitlePost,
         setNewTitlePost,
+        tagNameShowFrom,
+        setTagNameShowFrom,
+        toggleShowTagNameFrom,
+        editTagName,
+        setEditTagName,
+        newTagName,
+        setNewTagName,
+        addPostTagName,
+        toggleShowTagNameFromToDelete,
+        deletePostTagName,
       }}
     >
       {children}

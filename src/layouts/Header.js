@@ -47,7 +47,10 @@ function Header() {
                       </Link>
                     </li>
                     <li className="nav-item mx-3">
-                      <Link to="/" className={`navbar-brand ${stlyesNav.link}`}>
+                      <Link
+                        to="/my-feed"
+                        className={`navbar-brand ${stlyesNav.link}`}
+                      >
                         <i className="fas fa-rss-square"></i> My Feed
                       </Link>
                     </li>

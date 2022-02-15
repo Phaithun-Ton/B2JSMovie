@@ -4,6 +4,7 @@ import styles from "../../styles/Post.module.css";
 
 function PostBody({ posts }) {
   const { PostImgs, content, id } = posts;
+
   const {
     showFrom,
     updatePost,
@@ -12,6 +13,8 @@ function PostBody({ posts }) {
     setEditContent,
     setNewPost,
     newPost,
+    setShowFrom,
+    setEditPost,
   } = useContext(SelectContext);
 
   const payload = {
@@ -21,7 +24,9 @@ function PostBody({ posts }) {
   const handleSubmitPost = (e) => {
     e.preventDefault();
     updatePost(payload);
-    setEditContent((prev) => !prev);
+    setEditContent(false);
+    setShowFrom(true);
+    setEditPost(false);
   };
 
   return (
@@ -29,10 +34,10 @@ function PostBody({ posts }) {
       {showFrom && (
         <>
           <div
-            className="d-flex align-items-center ms-5"
+            className="container align-items-center ms-4"
             style={{ color: "#fff" }}
           >
-            {content}
+            <p className={`me-5 text-wrap  ${styles.p}`}>{content}</p>
           </div>
           {PostImgs.map((item) => (
             <img
@@ -50,9 +55,8 @@ function PostBody({ posts }) {
             <div
               className={`d-flex align-items-center ms-5`}
               style={{ color: "#fff" }}
-              onClick={() => setEditContent((prev) => !prev)}
             >
-              {content}
+              <p className={styles.p}></p> {content}
             </div>
           ) : (
             <input

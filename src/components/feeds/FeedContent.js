@@ -10,7 +10,7 @@ function FeedContent({ tagName }) {
   const { firstName, lastName, profileImg } = tagName.Post.User;
   const { title, updatedAt, id } = tagName.Post;
 
-  const hadleClick = (e) => {
+  const handleClick = (e) => {
     setSelectPost(e.target.value);
     Navigate(`/post/${e.target.value}`);
   };
@@ -43,9 +43,10 @@ function FeedContent({ tagName }) {
           to="/post"
           value={id}
           className={`navbar-brand ${styles.button}`}
-          onClick={hadleClick}
+          onClick={handleClick}
         >
           {title ?? "No Title"}
+          <i className="fas fa-angle-double-left ms-2"></i>
         </button>
       </div>
     </>

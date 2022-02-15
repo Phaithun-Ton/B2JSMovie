@@ -16,7 +16,7 @@ function PostProfile({ posts }) {
             alt="user"
             role="button"
           />
-          <div className="d-flex flex-column ms-2 mt-4">
+          <div className="d-flex flex-column ms-2 mt-4 align-items-start ">
             <span className="fw-bold" style={{ color: "#fff" }} role="button">
               {posts.User.firstName} {posts.User.lastName}
             </span>

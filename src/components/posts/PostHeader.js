@@ -11,13 +11,24 @@ function PostHeader({ posts }) {
     setEditContent,
     newTitlePost,
     setNewTitlePost,
+    updatePost,
+    setEditPost,
+    setShowFrom,
   } = useContext(SelectContext);
 
-  const { title } = posts;
+  const { title, id } = posts;
+
+  const payload = {
+    title: newTitlePost,
+    postId: id,
+  };
 
   const handleSubmitTitleFrom = (e) => {
     e.preventDefault();
-    setEditContent((prev) => !prev);
+    updatePost(payload);
+    setEditContent(false);
+    setShowFrom(true);
+    setEditPost(false);
   };
 
   return (
