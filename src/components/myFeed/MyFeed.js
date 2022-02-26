@@ -22,12 +22,16 @@ function MyFeed() {
     const formData = new FormData();
     formData.append("title", title);
     formData.append("content", content);
-    formData.append("image", img);
-    console.log(img);
+    for (const image of img) {
+      formData.append("image", image);
+    }
+
+    console.log(tagName);
+    console.log(formData);
     try {
       setloading(true);
       await axios.post(
-        `/posts${tagName.map((item) => "?tagName=" + item)}`,
+        `/posts${tagName.map((item) => "?tagName=" + item + "&")}`,
         formData
       );
       fetchPost();

@@ -1,11 +1,9 @@
 import { Modal } from "bootstrap";
-import { useCallback, useContext, useRef, useState } from "react";
+import { useContext, useRef, useState } from "react";
 import defaultImg from "../../assets/image/d-p.png";
 import { AuthContext } from "../../contexts/AuthContext";
 import { TagNameContext } from "../../contexts/PostContext";
-import { useDropzone } from "react-dropzone";
 import styles from "../../styles/MyFeed.module.css";
-import axios from "../../config/axios";
 
 function MyFeedPostFrom({ createPost }) {
   const { user } = useContext(AuthContext);
@@ -49,22 +47,6 @@ function MyFeedPostFrom({ createPost }) {
       setTagName(tag);
     }
   };
-
-  const onDrop = useCallback(async (acceptedFiles) => {
-    acceptedFiles.forEach(async (acceptedFile) => {
-      const formData = new FormData();
-      formData.append("file", acceptedFile);
-      const response = await axios.post("/posts", formData);
-      const data = await response.json();
-      console.log(data);
-    });
-  }, []);
-
-  const { getRootProps, getInputProps, isDragActive } = useDropzone({
-    onDrop,
-    accepts: "image/*",
-    multiple: false,
-  });
 
   return (
     <>
@@ -169,31 +151,26 @@ function MyFeedPostFrom({ createPost }) {
                       />
                     ))}
 
-                  <div
-                    {...getRootProps()}
-                    className={`${styles.dropzone} ${
-                      isDragActive ? styles.active : null
-                    }`}
-                  >
+                  <div className="input-group mt-3">
                     <input
-                      {...getInputProps()}
                       type="file"
+                      className="form-control"
                       ref={imgInputEl}
                       onChange={(e) => {
                         console.log(e);
-                        setImg(e.target.files);
+                        setImg([...e.target.files]);
                       }}
                       multiple
                     />
                     <button
-                      className={`${styles.bottonClose}`}
+                      className="btn btn-outline-danger"
                       type="button"
                       onClick={() => {
                         imgInputEl.current.value = null;
                         setImg([]);
                       }}
                     >
-                      <i className="fas fa-times-circle"></i>
+                      Remove
                     </button>
                   </div>
                 </div>
