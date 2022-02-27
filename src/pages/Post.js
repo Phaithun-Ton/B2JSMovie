@@ -31,7 +31,7 @@ function Post() {
   const fectTagNames = async () => {
     try {
       const res = await axios.get("/tag-names");
-      //   console.log(res.data);
+      console.log(res.data);
       setTagNames(res.data);
     } catch (err) {
       console.log(err);
