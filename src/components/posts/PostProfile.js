@@ -1,10 +1,9 @@
 import timeSince from "../../services/timeSince";
 import defaultImg from "../../assets/image/d-p.png";
 import styles from "../../styles/Post.module.css";
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import { SelectContext } from "../../contexts/SelectContext";
 import { AuthContext } from "../../contexts/AuthContext";
-// import axios from "../../config/axios";
 
 function PostProfile({ posts }) {
   const {
