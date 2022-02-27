@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import timeSince from "../../services/timeSince";
 import styles from "../../styles/Post.module.css";
 import axios from "../../config/axios";
+import { SelectContext } from "../../contexts/SelectContext";
 
 function CommentBody({ comments }) {
   // console.log(comments);
@@ -9,6 +10,7 @@ function CommentBody({ comments }) {
   const [editComments, setEditComments] = useState(false);
   const [showFrom, setShowFrom] = useState(true);
   const [newComments, setNewComments] = useState(title);
+  const { deleteComment } = useContext(SelectContext);
 
   const toggleShowFrom = () => {
     setShowFrom((prev) => !prev);
@@ -32,6 +34,10 @@ function CommentBody({ comments }) {
     updateComment(newComments);
     setShowFrom((prev) => !prev);
     setEditComments((prev) => !prev);
+  };
+
+  const hanldeClickDelete = async (e) => {
+    deleteComment(e.target.value);
   };
 
   return (
@@ -60,6 +66,8 @@ function CommentBody({ comments }) {
                 disabled={!(postId !== id)}
                 className="dropdown-item"
                 href="/"
+                value={id}
+                onClick={hanldeClickDelete}
               >
                 Delete
               </button>

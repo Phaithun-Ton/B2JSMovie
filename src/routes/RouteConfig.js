@@ -15,19 +15,27 @@ function RouteConfig() {
   return (
     <Routes>
       {user ? (
-        user.role === "USER" && (
+        (user.role === "USER" && (
           <Route path="/" element={<MainLayout />}>
             <Route path="" element={<Home />} />
             <Route path="post/:id" element={<Post />} />
             <Route path="my-feed" element={<MyFeed />} />
-            {/* <Route path="*" element={<Navigate to="/" />} /> */}
+            <Route path="*" element={<Navigate to="/" />} />
           </Route>
-        )
+        )) ||
+        (user.role === "ADMIN" && (
+          <Route path="/" element={<MainLayout />}>
+            <Route path="" element={<Home />} />
+            <Route path="post/:id" element={<Post />} />
+            <Route path="my-feed" element={<MyFeed />} />
+            <Route path="*" element={<Navigate to="/" />} />
+          </Route>
+        ))
       ) : (
         <Route path="/" element={<PublicLayout />}>
           <Route path="" element={<Login />} />
           <Route path="register" element={<Register />} />
-          {/* <Route path="*" element={<Navigate to="/" />} /> */}
+          <Route path="*" element={<Navigate to="/" />} />
         </Route>
       )}
     </Routes>

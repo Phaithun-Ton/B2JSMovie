@@ -25,15 +25,13 @@ function MyFeed() {
     for (const image of img) {
       formData.append("image", image);
     }
+    for (const tagNameId of tagName) {
+      formData.append("tagNameId", tagNameId);
+    }
 
-    console.log(tagName);
-    console.log(formData);
     try {
       setloading(true);
-      await axios.post(
-        `/posts${tagName.map((item) => "?tagName=" + item + "&")}`,
-        formData
-      );
+      await axios.post(`/posts`, formData);
       fetchPost();
     } catch (err) {
       console.log(err);

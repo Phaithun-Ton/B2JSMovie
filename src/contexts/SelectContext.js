@@ -15,6 +15,10 @@ function SelectContextProvider({ children }) {
   const [tagNameShowFrom, setTagNameShowFrom] = useState(true);
   const [editTagName, setEditTagName] = useState([]);
   const [newTagName, setNewTagName] = useState([]);
+  const [newTitle, setNewTitle] = useState("");
+  const [newContent, setNewContent] = useState("");
+  const [loading, setloading] = useState(false);
+  const [commentTitle, setCommentTitle] = useState("");
 
   const fetchPostById = async () => {
     try {
@@ -33,36 +37,28 @@ function SelectContextProvider({ children }) {
     setEditContent(false);
   };
 
-  const toggleShowTagNameFrom = () => {
-    setTagNameShowFrom(false);
-    setEditTagName(posts && posts.postTagNames.TagName);
-  };
-
-  const toggleShowTagNameFromToDelete = () => {
-    setTagNameShowFrom(false);
-    setEditTagName(posts && posts.postTagNames.TagName);
-  };
-
-  const checkedTagName =
-    posts &&
-    posts.length !== 0 &&
-    posts.PostTagNames.map((item) => item.TagName && item.TagName.title);
-
   const updatePost = async (payload) => {
+    const { postId, content, title, img, tagName } = payload;
+    const formData = new FormData();
+    formData.append("postId", postId);
+    formData.append("title", title);
+    formData.append("content", content);
+    for (const image of img) {
+      formData.append("image", image);
+    }
+    for (const tagNameId of tagName) {
+      formData.append("tagNameId", tagNameId);
+    }
     try {
+      setloading(true);
       console.log(payload);
-      const { postId, content, title } = payload;
-      const res = await axios.patch(`/posts/${postId}`, {
-        title,
-        content,
-        // tagName,
-        // chageTagName,
-        // image,
-      });
+      const res = await axios.patch(`/posts/update`, formData);
       fetchPostById(postId);
       console.log(res.data);
     } catch (err) {
       console.log(err);
+    } finally {
+      setloading(false);
     }
   };
 
@@ -82,13 +78,83 @@ function SelectContextProvider({ children }) {
 
   const deletePostTagName = async (payload) => {
     const { postId, tagName } = payload;
-    console.log(postId);
-    console.log(tagName);
     try {
+      setloading(true);
       const res = await axios.delete(`/post-tag-names/${postId}/${tagName}`);
       console.log(res.data);
       fetchPostById(postId);
       setTagNameShowFrom(true);
+    } catch (err) {
+      console.log(err);
+    } finally {
+      setloading(false);
+    }
+  };
+
+  const createComment = async (payload) => {
+    const { postId } = payload;
+    try {
+      const res = await axios.post(`comments`, payload);
+      console.log(res.data);
+      fetchPostById(postId);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const deleteComment = async (id) => {
+    try {
+      const res = await axios.delete(`comments/${id}`);
+      console.log(res.data);
+      fetchPostById(id);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  // TODO: Like post
+  const likePost = async (id) => {
+    const postId = id;
+    try {
+      const res = await axios.post(`likes/${postId}`);
+      console.log(res.data);
+      fetchPostById(id);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  // TODO: Unlike post
+  const unlikePost = async (id) => {
+    const postId = id;
+    try {
+      const res = await axios.delete(`likes/${postId}`);
+      console.log(res.data);
+      fetchPostById(id);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  // TODO: UnFollow user
+  const unFollow = async (payload) => {
+    const { userId, id } = payload;
+    try {
+      const res = await axios.delete(`follows/${userId}`);
+      console.log(res.data);
+      fetchPostById(id);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  // TODO: Follow user
+  const followSomeone = async (payload) => {
+    const { userId, id } = payload;
+    try {
+      const res = await axios.post(`follows/${userId}`);
+      console.log(res.data);
+      fetchPostById(id);
     } catch (err) {
       console.log(err);
     }
@@ -120,14 +186,26 @@ function SelectContextProvider({ children }) {
         setNewTitlePost,
         tagNameShowFrom,
         setTagNameShowFrom,
-        toggleShowTagNameFrom,
         editTagName,
         setEditTagName,
         newTagName,
         setNewTagName,
         addPostTagName,
-        toggleShowTagNameFromToDelete,
         deletePostTagName,
+        newTitle,
+        setNewTitle,
+        newContent,
+        setNewContent,
+        loading,
+        setloading,
+        commentTitle,
+        setCommentTitle,
+        createComment,
+        deleteComment,
+        likePost,
+        unlikePost,
+        unFollow,
+        followSomeone,
       }}
     >
       {children}

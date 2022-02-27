@@ -18,6 +18,7 @@ function Home() {
   useEffect(() => {
     fetchPost();
   }, []);
+
   return (
     <div className="container col-lg-10 my-5">
       <div className="row d-flex justify-content-between pe-3">

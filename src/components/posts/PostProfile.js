@@ -1,9 +1,62 @@
 import timeSince from "../../services/timeSince";
 import defaultImg from "../../assets/image/d-p.png";
 import styles from "../../styles/Post.module.css";
+import { useContext, useEffect } from "react";
+import { SelectContext } from "../../contexts/SelectContext";
+import { AuthContext } from "../../contexts/AuthContext";
+// import axios from "../../config/axios";
 
 function PostProfile({ posts }) {
-  // console.log(posts);
+  const {
+    id,
+    Likes,
+    userId,
+    User: { follow },
+  } = posts;
+  const { likePost, unlikePost, unFollow, followSomeone } =
+    useContext(SelectContext);
+  const { user } = useContext(AuthContext);
+
+  // TODO: Like post
+  const handleSubmitLike = (e) => {
+    e.preventDefault();
+    likePost(id);
+  };
+
+  // TODO: Unlike post
+  const handleSubmitUnlike = (e) => {
+    e.preventDefault();
+    unlikePost(id);
+  };
+
+  // TODO: UnFollow user
+  const handleSubmitUnFollow = (e) => {
+    const payload = {
+      userId,
+      id,
+    };
+    e.preventDefault();
+    unFollow(payload);
+  };
+
+  // TODO: Follow user
+  const handleSubmitFollow = (e) => {
+    const payload = {
+      userId,
+      id,
+    };
+    e.preventDefault();
+    followSomeone(payload);
+  };
+
+  // TODO: Check like
+  const like = Likes.map((item) => item.userId);
+  const findLike = like.filter((e) => e === user.id);
+
+  // TODO: Check follow
+  const fol = follow.map((item) => item.followerId);
+  const findFollower = fol.filter((e) => e === user.id);
+
   return (
     <>
       <div className="align-items-center py-2 px-3">
@@ -43,6 +96,32 @@ function PostProfile({ posts }) {
             </div>
           </div>
         </div>
+        {userId !== user.id && (
+          <>
+            {findLike.length > 0 ? (
+              <form onSubmit={handleSubmitUnlike}>
+                <button className="ms-2 mt-2">
+                  <i className="fas fa-thumbs-up"></i>
+                </button>
+              </form>
+            ) : (
+              <form onSubmit={handleSubmitLike}>
+                <button className="ms-2 mt-2">
+                  <i className="far fa-thumbs-up"></i>
+                </button>
+              </form>
+            )}
+            {findFollower.length > 0 ? (
+              <form onSubmit={handleSubmitUnFollow}>
+                <button className="ms-2 mt-2">UnFollow</button>
+              </form>
+            ) : (
+              <form onSubmit={handleSubmitFollow}>
+                <button className="ms-2 mt-2">Follow</button>
+              </form>
+            )}
+          </>
+        )}
       </div>
     </>
   );

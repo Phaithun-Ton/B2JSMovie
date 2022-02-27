@@ -16,7 +16,6 @@ function MyFeedPostFrom({ createPost }) {
   const [tagName, setTagName] = useState([]);
   const [img, setImg] = useState([]);
 
-  console.log(img);
   const imgs = Array.from(img);
   const modalEl = useRef();
   const imgInputEl = useRef();
@@ -38,6 +37,7 @@ function MyFeedPostFrom({ createPost }) {
   };
 
   const handleClickTagName = (e) => {
+    console.log(e.target.value);
     if (e.target.checked) {
       setTagName((prev) => [...prev, e.target.value]);
     } else {
@@ -109,7 +109,7 @@ function MyFeedPostFrom({ createPost }) {
                           className="ms-3"
                           type="checkbox"
                           id={`checkbox-${item.title}`}
-                          value={item.title}
+                          value={item.id}
                           onChange={handleClickTagName}
                         />
                         <label htmlFor={`checkbox-${item.title}`}>

@@ -73,7 +73,8 @@
   border: 2px solid rgb(183, 251, 214);
 }
 
-.bottonClose {
+.buttonClose {
+  display: flex;
   font-size: 1.25rem;
   border: none;
   background-color: #2f2d34;

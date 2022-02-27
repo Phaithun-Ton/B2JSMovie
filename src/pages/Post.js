@@ -66,100 +66,7 @@ function Post() {
             <div className="row d-flex justify-content-between">
               <div className={`container ${styles.tagName}`}>
                 <div className="p-2 d-flex justify-content-between ">
-                  {tagNameShowFrom ? (
-                    <PostTagName />
-                  ) : (
-                    <div className="container">
-                      <form
-                        className="d-flex justify-content-between"
-                        action="action"
-                        onSubmit={handleSubmitTagName}
-                      >
-                        <p className="m-2 ">Tag Name:</p>
-                        {tagNames &&
-                          tagNames.length !== 0 &&
-                          tagNames.tagNames.map((item) => (
-                            <div key={item.id}>
-                              <input
-                                type="checkbox"
-                                id={item.title}
-                                value={item.id}
-                                onChange={(e) => setNewTagName(e.target.value)}
-                              />
-                              <label htmlFor={item.title} className="m-2">
-                                {item.title}
-                              </label>
-                            </div>
-                          ))}
-                        <div className="mt-1 text-muted">
-                          <div className="dropdown">
-                            <button
-                              className="btn text-muted"
-                              data-bs-toggle="dropdown"
-                            >
-                              <i className="fa fa-ellipsis-h"></i>
-                            </button>
-                            <ul className="dropdown-menu">
-                              <li>
-                                <button
-                                  disabled={!(posts.userId === user.id)}
-                                  onClick={toggleShowTagNameFrom}
-                                  className="dropdown-item"
-                                  href="/"
-                                >
-                                  {tagNameShowFrom ? <>Add</> : <>Save</>}
-                                </button>
-                              </li>
-                              <li>
-                                <button
-                                  disabled={!(posts.userId === user.id)}
-                                  className="dropdown-item"
-                                  href="/"
-                                  onClick={toggleShowTagNameFromToDelete}
-                                >
-                                  Delete
-                                </button>
-                              </li>
-                            </ul>
-                          </div>
-                        </div>
-                      </form>
-                    </div>
-                  )}
-                  {tagNameShowFrom && (
-                    <div className="mt-1 text-muted">
-                      <div className="dropdown">
-                        <button
-                          className="btn text-muted"
-                          data-bs-toggle="dropdown"
-                        >
-                          <i className="fa fa-ellipsis-h"></i>
-                        </button>
-                        <ul className="dropdown-menu">
-                          <li>
-                            <button
-                              disabled={!(posts.userId === user.id)}
-                              onClick={toggleShowTagNameFrom}
-                              className="dropdown-item"
-                              href="/"
-                            >
-                              {tagNameShowFrom ? <>Add</> : <>Save</>}
-                            </button>
-                          </li>
-                          <li>
-                            <button
-                              disabled={!(posts.userId === user.id)}
-                              className="dropdown-item"
-                              href="/"
-                              onClick={toggleShowTagNameFromToDelete}
-                            >
-                              Delete
-                            </button>
-                          </li>
-                        </ul>
-                      </div>
-                    </div>
-                  )}
+                  <PostTagName />
                 </div>
               </div>
               <div className="container-fluid d-flex gap-4">
@@ -178,10 +85,7 @@ function Post() {
               {posts.Comments && posts.Comments.length !== 0 && (
                 <>
                   {posts.Comments.map((item) => (
-                    <div
-                      key={item.userId}
-                      className="container-fluid d-flex gap-4"
-                    >
+                    <div key={item.id} className="container-fluid d-flex gap-4">
                       <>
                         <div className="col-lg-2 col-md-4 mt-4">
                           <div className={styles.contanier}>
