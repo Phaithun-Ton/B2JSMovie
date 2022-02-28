@@ -55,7 +55,10 @@ function Header() {
                       </Link>
                     </li>
                     <li className="nav-item mx-3">
-                      <Link to="/" className={`navbar-brand ${stlyesNav.link}`}>
+                      <Link
+                        to="/follow"
+                        className={`navbar-brand ${stlyesNav.link}`}
+                      >
                         <i className="fas fa-user"></i> Follow
                       </Link>
                     </li>

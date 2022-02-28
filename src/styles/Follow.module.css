@@ -1,0 +1,22 @@
+.nav {
+  background-color: #2f2d34;
+  color: #fff;
+}
+
+.buttonNav {
+  color: #fff;
+  text-decoration: none;
+}
+
+.buttonNav:hover {
+  color: rgb(183, 251, 214);
+}
+
+.box {
+  background-color: #2f2d34;
+  color: #fff;
+}
+
+.span {
+  color: rgb(189, 186, 186) !important;
+}

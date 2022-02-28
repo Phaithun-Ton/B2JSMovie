@@ -3,14 +3,16 @@ import timeSince from "../../services/timeSince";
 import styles from "../../styles/Post.module.css";
 import axios from "../../config/axios";
 import { SelectContext } from "../../contexts/SelectContext";
+import { AuthContext } from "../../contexts/AuthContext";
 
 function CommentBody({ comments }) {
-  // console.log(comments);
-  const { title, createdAt, updatedAt, id, postId } = comments;
+  console.log(comments);
+  const { title, createdAt, updatedAt, id, postId, User } = comments;
   const [editComments, setEditComments] = useState(false);
   const [showFrom, setShowFrom] = useState(true);
   const [newComments, setNewComments] = useState(title);
   const { deleteComment } = useContext(SelectContext);
+  const { user } = useContext(AuthContext);
 
   const toggleShowFrom = () => {
     setShowFrom((prev) => !prev);
@@ -56,14 +58,14 @@ function CommentBody({ comments }) {
                 onClick={toggleShowFrom}
                 className="dropdown-item"
                 href="/"
-                disabled={!(postId !== id)}
+                disabled={!(User.id === user.id)}
               >
                 {showFrom ? <>Edit</> : <>Save</>}
               </button>
             </li>
             <li>
               <button
-                disabled={!(postId !== id)}
+                disabled={!(User.id === user.id)}
                 className="dropdown-item"
                 href="/"
                 value={id}
