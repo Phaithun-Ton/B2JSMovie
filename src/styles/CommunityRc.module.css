@@ -1,0 +1,20 @@
+.communityBody {
+  background-color: #2f2d34;
+  display: flex;
+  border: 1px solid #fff;
+}
+
+.button {
+  background-color: #2f2d34;
+  border: none;
+  color: #fff;
+}
+
+.button:hover {
+  color: rgb(183, 251, 214);
+}
+
+.h1 {
+  color: rgb(183, 251, 214);
+  display: flex;
+}

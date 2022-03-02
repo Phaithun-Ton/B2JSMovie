@@ -24,6 +24,15 @@
   font-size: 1rem;
 }
 
+.button:hover {
+  color: rgb(183, 251, 214);
+}
+
 .time {
   color: rgb(189, 186, 186) !important;
+}
+
+.buttonTagName:hover {
+  background-color: #c43639;
+  color: #fff;
 }

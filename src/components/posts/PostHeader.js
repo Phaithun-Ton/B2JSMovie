@@ -1,6 +1,6 @@
 import axios from "../../config/axios";
 import { Modal } from "bootstrap";
-import { useContext, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { AuthContext } from "../../contexts/AuthContext";
 import { TagNameContext } from "../../contexts/PostContext";
 import { SelectContext } from "../../contexts/SelectContext";
@@ -19,6 +19,7 @@ function PostHeader({ posts }) {
     setNewContent,
     loading,
     setloading,
+    setTagNames,
   } = useContext(SelectContext);
 
   const { title, content, id } = posts;
@@ -29,6 +30,7 @@ function PostHeader({ posts }) {
   const [model, setModal] = useState(null);
   const [newTagName, setNewTagName] = useState([]);
   const [newImg, setNewImg] = useState([]);
+  const [postImage, setPostImage] = useState([]);
 
   const imgs = Array.from(newImg);
   const modalEl = useRef();
@@ -43,6 +45,7 @@ function PostHeader({ posts }) {
   };
 
   const handleDeletePostImage = async (e) => {
+    console.log(PostImgs.map((item) => item.imgUrl));
     e.preventDefault();
     try {
       setloading(true);
@@ -51,6 +54,7 @@ function PostHeader({ posts }) {
         postImageId = postImage.value;
       }
       const res = await axios.delete(`/posts/delete-img/${postImageId}`);
+      getImagePostById(id);
       console.log(res.data);
     } catch (err) {
       console.log(err);
@@ -58,6 +62,22 @@ function PostHeader({ posts }) {
       setloading(false);
     }
   };
+
+  // TODO: Get post image by id
+  const getImagePostById = async (id) => {
+    const postId = id;
+    try {
+      const res = await axios.get(`/posts/post-image/${postId}`);
+      console.log(res.data.postImage);
+      setPostImage(res.data.postImage);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    getImagePostById(id);
+  }, [id, PostImgs]);
 
   const payload = {
     title: newTitle,
@@ -87,6 +107,8 @@ function PostHeader({ posts }) {
       setNewTagName(tag);
     }
   };
+
+  console.log(postImage);
 
   return (
     <>
@@ -150,8 +172,9 @@ function PostHeader({ posts }) {
                 </div>
                 <div className={`modal-body ${styles.myFeed}`}>
                   <form onSubmit={handleDeletePostImage}>
-                    {PostImgs.map((item) => (
-                      <div value={item} key={item.imgUrl} className="d-flex">
+                    {loading && <Spinner />}
+                    {postImage.map((item) => (
+                      <div value={item.id} key={item.imgUrl} className="d-flex">
                         <img
                           src={item.imgUrl}
                           className="img-fluid my-3"

@@ -15,6 +15,7 @@
 .input {
   background-color: #181a1d;
   color: #fff;
+  width: 40%;
 }
 
 .feedbody {
@@ -48,6 +49,10 @@
   color: #fff;
 }
 
+.button:hover {
+  color: rgb(183, 251, 214);
+}
+
 .close {
   background-color: #c43639;
 }
@@ -79,4 +84,21 @@
   border: none;
   background-color: #2f2d34;
   color: red;
+}
+
+.header {
+  background-color: #2f2d34;
+  display: flex;
+  justify-content: space-between;
+}
+
+.h4 {
+  font-size: 2rem;
+  color: rgb(183, 251, 214);
+}
+
+.divI {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.5rem;
 }

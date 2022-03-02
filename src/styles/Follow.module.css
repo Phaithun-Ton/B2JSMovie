@@ -6,15 +6,30 @@
 .buttonNav {
   color: #fff;
   text-decoration: none;
+  background-color: #2f2d34;
+  border: none;
 }
 
 .buttonNav:hover {
+  color: rgb(183, 251, 214);
+  border: none;
+}
+
+.buttonNav::selection {
+  color: rgb(183, 251, 214);
+  border: none;
+}
+
+.click {
+  border: none;
+  background-color: #2f2d34;
   color: rgb(183, 251, 214);
 }
 
 .box {
   background-color: #2f2d34;
   color: #fff;
+  border: none;
 }
 
 .span {

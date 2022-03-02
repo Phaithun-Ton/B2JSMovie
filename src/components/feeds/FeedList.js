@@ -4,9 +4,8 @@ function FeedList({ tagNames }) {
   // console.log(tagNames);
   return (
     <>
-      {tagNames.map((item) => (
-        <FeedCard key={item.id} tagName={item} />
-      ))}
+      {tagNames &&
+        tagNames.map((item) => <FeedCard key={item.id} tagName={item} />)}
     </>
   );
 }

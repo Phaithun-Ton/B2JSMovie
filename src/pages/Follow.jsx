@@ -46,11 +46,6 @@ function Follow() {
     <>
       <div className={`container col-lg-10 my-5`}>
         <FollowMenu changeMode={changeMode} />
-        <input
-          className="form-control rounded-pill"
-          type="search"
-          placeholder="Search"
-        />
         <FollowList
           follow={follow}
           mode={mode}

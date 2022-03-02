@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { LanguageContext } from "../contexts/LanguageContext";
 import stlyes from "../styles/Auth.module.css";
 import stlyesNav from "../styles/Nav.module.css";
@@ -9,6 +9,8 @@ import { AuthContext } from "../contexts/AuthContext";
 function Header() {
   const { setLanguage } = useContext(LanguageContext);
   const { logout, user } = useContext(AuthContext);
+
+  const navigate = useNavigate();
 
   return (
     <>
@@ -63,7 +65,10 @@ function Header() {
                       </Link>
                     </li>
                     <li className="nav-item mx-3">
-                      <Link to="/" className={`navbar-brand ${stlyesNav.link}`}>
+                      <Link
+                        to="/communityRc"
+                        className={`navbar-brand ${stlyesNav.link}`}
+                      >
                         <i className="fas fa-thumbs-up"></i> Community
                         Recommendation
                       </Link>
@@ -80,6 +85,7 @@ function Header() {
                       width="40"
                       height="40"
                       className="rounded-circle"
+                      onClick={() => navigate("my-feed")}
                       alt="user"
                     />
                   </div>

@@ -2,7 +2,7 @@ import FeedContent from "./FeedContent";
 import FeedHeader from "./FeedHeader";
 
 function FeedCard({ tagName }) {
-  console.log(tagName);
+  // console.log(tagName);
   return (
     <div className="d-flex row ">
       <div className="my-4">
